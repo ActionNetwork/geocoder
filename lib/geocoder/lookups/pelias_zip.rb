@@ -1,5 +1,5 @@
 require 'geocoder/lookups/base'
-require 'geocoder/results/pelias'
+require 'geocoder/results/pelias_zip'
 
 module Geocoder::Lookup
   class PeliasZip < Base
