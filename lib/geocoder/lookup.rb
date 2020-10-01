@@ -39,6 +39,7 @@ module Geocoder
         :mapquest,
         :opencagedata,
         :pelias,
+        :pelias_zip,
         :pickpoint,
         :here,
         :baidu,
