@@ -24,7 +24,7 @@ module Geocoder::Lookup
 
     def query_url_params(query)
       params = {
-        api_key: configuration.api_key
+        apikey: configuration.api_key
       }.merge(super)
 
       if query.reverse_geocode?
