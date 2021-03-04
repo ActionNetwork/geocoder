@@ -45,6 +45,12 @@ module Geocoder::Lookup
         error = doc.fetch('results', {}).fetch('error', {})
         message = error.fetch('type', 'Unknown Error') + ': ' + error.fetch('message', 'No message')
         log_message = 'Pelias Zip Geocoding API error - ' + message
+        
+        puts doc
+        puts query
+        puts base_query_url(query)
+        puts query_url_params(query)
+        
         case doc['meta']['status_code']
           when '200'
             # nothing to see here
