@@ -8,7 +8,7 @@ module Geocoder
         when ::Logger::DEBUG, ::Logger::INFO
           puts message
         when ::Logger::WARN
-          warn caller[0]
+          warn caller
           warn message
         when ::Logger::ERROR
           raise message
