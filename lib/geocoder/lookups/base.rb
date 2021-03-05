@@ -245,6 +245,9 @@ module Geocoder
         if cache and body = cache[key]
           @cache_hit = true
         else
+          warn query
+          warn query_url(query)
+
           check_api_key_configuration!(query)
           response = make_api_request(query)
           check_response_for_errors!(response)
