@@ -35,9 +35,9 @@ module Geocoder
           :reverse_block   => block,
           :units           => options[:units],
           :method          => options[:method],
-          :lookup          => options[:lookup],
+          :reverse_lookup  => options[:lookup],
           :language        => options[:language],
-          :params          => options[:params]
+          :reverse_params  => options[:params]
         )
       end
 

@@ -81,8 +81,13 @@ module Geocoder
       # Geocoder::Result objects).
       #
       def do_lookup(reverse = false)
+        lookup_key = :lookup
+        params_key = :params
+
         options = self.class.geocoder_options
         if reverse and options[:reverse_geocode]
+          lookup_key = :reverse_lookup
+          params_key = :reverse_params
           query = to_coordinates
         elsif !reverse and options[:geocode]
           query = send(options[:user_address])
@@ -90,13 +95,24 @@ module Geocoder
           return
         end
 
-        query_options = [:lookup, :ip_lookup, :language, :params].inject({}) do |hash, key|
+        query_options = [:ip_lookup, :language].inject({}) do |hash, key|
           if options.has_key?(key)
             val = options[key]
             hash[key] = val.respond_to?(:call) ? val.call(self) : val
           end
           hash
         end
+
+        if options.has_key?(lookup_key)
+          val = options[lookup_key]
+          query_options[:lookup] = val.respond_to?(:call) ? val.call(self) : val
+        end
+
+        if options.has_key?(params_key)
+          val = options[params_key]
+          query_options[:params] = val.respond_to?(:call) ? val.call(self) : val
+        end
+
         results = Geocoder.search(query, query_options)
 
         # execute custom block, if specified in configuration
