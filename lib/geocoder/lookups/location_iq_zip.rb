@@ -15,7 +15,7 @@ module Geocoder::Lookup
 
     def base_query_url(query)
       method = query.reverse_geocode? ? "reverse" : "search/postalcode"
-      "#{protocol}://#{configured_host}/v1/#{method}/"
+      "#{protocol}://#{configured_host}/v1/#{method}/?"
     end
 
     def query_url_params(query)
