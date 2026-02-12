@@ -19,9 +19,18 @@ module Geocoder::Lookup
     end
 
     def query_url_params(query)
-      {
-        key: configuration.api_key
+      params = {
+        :format => "json",
+        :key => configuration.api_key
       }.merge(super)
+      if query.reverse_geocode?
+        lat,lon = query.coordinates
+        params[:lat] = lat
+        params[:lon] = lon
+      else
+        params[:postalcode] = query.sanitized_text
+      end
+      params
     end
 
     def configured_host
@@ -46,19 +55,5 @@ module Geocoder::Lookup
 
       doc.is_a?(Array) ? doc : [doc]
     end
-  end
-  
-  def query_url_params(query)
-    params = {
-      :format => "json"
-    }.merge(super)
-    if query.reverse_geocode?
-      lat,lon = query.coordinates
-      params[:lat] = lat
-      params[:lon] = lon
-    else
-      params[:postalcode] = query.sanitized_text
-    end
-    params
   end
 end
