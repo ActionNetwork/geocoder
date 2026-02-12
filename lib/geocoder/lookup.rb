@@ -24,6 +24,7 @@ module Geocoder
     def street_services
       @street_services ||= [
         :location_iq,
+        :location_iq_zip,
         :dstk,
         :esri,
         :google,
