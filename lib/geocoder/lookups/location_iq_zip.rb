@@ -30,6 +30,7 @@ module Geocoder::Lookup
       else
         params[:postalcode] = query.sanitized_text
       end
+      params[:q] = nil
       params
     end
 
