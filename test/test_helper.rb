@@ -201,6 +201,20 @@ module Geocoder
       end
     end
 
+    require 'geocoder/lookups/location_iq_zip'
+    class LocationIqZip
+      private
+      def read_fixture(file)
+        if ["location_iq_zip_unable_to_geocode", "location_iq_zip_not_found"].include?(file)
+          filepath = File.join("test", "fixtures", file)
+          s = File.read(filepath).strip.gsub(/\n\s*/, "")
+          MockHttpResponse.new(body: s, code: "404")
+        else
+          super
+        end
+      end
+    end
+
     require 'geocoder/lookups/yandex'
     class Yandex
       private

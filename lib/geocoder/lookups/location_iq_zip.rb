@@ -38,6 +38,21 @@ module Geocoder::Lookup
       configuration[:host] || "locationiq.org"
     end
 
+    # Normally only 2xx-3xx responses are cached. A 404 with the specific
+    # "Unable to geocode" body means the postal code is definitively
+    # unknown, so it's safe (and desirable) to cache that. Other 404 bodies
+    # and other non-2xx codes (5xx, timeouts, etc) are left uncached since
+    # they may indicate a transient issue rather than an unknown zip.
+    def valid_response?(response)
+      super || (response.code.to_i == 404 && unable_to_geocode?(response.body))
+    end
+
+    def unable_to_geocode?(body)
+      JSON.parse(body)['error'] == "Unable to geocode"
+    rescue JSON::ParserError
+      false
+    end
+
     def results(query)
       return [] unless doc = fetch_data(query)
 

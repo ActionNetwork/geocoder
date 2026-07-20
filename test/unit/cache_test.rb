@@ -56,4 +56,28 @@ class CacheTest < GeocoderTestCase
     Geocoder.search("service unavailable")
     assert_false lookup.instance_variable_get(:@cache_hit)
   end
+
+  def test_location_iq_zip_unable_to_geocode_does_hit_cache
+    Geocoder.configure(cache: {}, lookup: :location_iq_zip, always_raise: [])
+    set_api_key!(:location_iq_zip)
+    lookup = Geocoder::Lookup.get(:location_iq_zip)
+
+    Geocoder.search("unable to geocode")
+    assert_false lookup.instance_variable_get(:@cache_hit)
+
+    Geocoder.search("unable to geocode")
+    assert lookup.instance_variable_get(:@cache_hit)
+  end
+
+  def test_location_iq_zip_other_404_does_not_hit_cache
+    Geocoder.configure(cache: {}, lookup: :location_iq_zip, always_raise: [])
+    set_api_key!(:location_iq_zip)
+    lookup = Geocoder::Lookup.get(:location_iq_zip)
+
+    Geocoder.search("not found")
+    assert_false lookup.instance_variable_get(:@cache_hit)
+
+    Geocoder.search("not found")
+    assert_false lookup.instance_variable_get(:@cache_hit)
+  end
 end
