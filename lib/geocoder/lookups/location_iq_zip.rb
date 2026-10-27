@@ -11,6 +11,10 @@ module Geocoder::Lookup
       ["api_key"]
     end
 
+    def supported_protocols
+      [:https]
+    end
+
     private # ----------------------------------------------------------------
 
     def base_query_url(query)
@@ -35,7 +39,7 @@ module Geocoder::Lookup
     end
 
     def configured_host
-      configuration[:host] || "locationiq.org"
+      configuration[:host] || "us1.locationiq.com"
     end
 
     # Normally only 2xx-3xx responses are cached. A 404 with the specific

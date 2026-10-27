@@ -94,11 +94,11 @@ The [Google Places Search API](https://developers.google.com/places/web-service/
 ### LocationIQ (`:location_iq`)
 
 * **API key**: required
-* **Quota**: 60 requests/minute (2 req/sec, 10k req/day), then [ability to purchase more](http://locationiq.org/#pricing)
+* **Quota**: 60 requests/minute (2 req/sec, 10k req/day), then [ability to purchase more](https://locationiq.com/pricing)
 * **Region**: world
 * **SSL support**: yes
 * **Languages**: ?
-* **Documentation**: https://locationiq.org/#docs
+* **Documentation**: https://docs.locationiq.com
 * **Terms of Service**: https://unwiredlabs.com/tos
 * **Limitations**: [Data licensed under Open Database License (ODbL) (you must provide attribution).](https://www.openstreetmap.org/copyright)
 
